@@ -7,56 +7,74 @@ import android.view.Menu
 
 import androidx.appcompat.widget.SearchView
 
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-
+    //
     private lateinit var newRecylerview : RecyclerView
+    //
     private lateinit var newArrayList : ArrayList<Lyrics>
+    //
     private lateinit var tempArrayList : ArrayList<Lyrics>
-    lateinit var imageId : Array<Int>
+    // масив фотографій
+    //lateinit var imageId : Array<Int>
+    // масив назв пісень і авторів
     lateinit var heading : Array<String>
-    lateinit var lyrics : Array<String>
-
+    // масив текстів пісень
+    lateinit var lyrics :  Array<String>
+    // масив посилань
+    lateinit var ImageUrl :  Array<String>
+    // Основна
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        imageId = arrayOf(
-                R.drawable.a,
-                R.drawable.b,
-                R.drawable.c,
-                R.drawable.d,
-                R.drawable.e,
-                R.drawable.f
-        )
 
+        // вміст масиву фотографій
+        /*imageId = arrayOf(
+            R.drawable.a,
+            R.drawable.b,
+            R.drawable.c,
+            R.drawable.d,
+            R.drawable.e,
+            R.drawable.f
+
+        ) */
+        // масив посилань на фотографії
+        ImageUrl = arrayOf(
+            "https://i.scdn.co/image/ab67616d0000b273319178a0be6d3ab9aa9a630d",
+            "https://cdn.segodnya.ua/i/original/media/image/5ef/485/5d9/5ef4855d96564.jpg.webp",
+            "https://cdns-images.dzcdn.net/images/cover/9bdc7af0262d0ef8499a66eaf8ab9a6d/500x500.jpg",
+            "https://i.ytimg.com/vi/LzPrpwMKrBQ/maxresdefault.jpg",
+            "https://upload.wikimedia.org/wikipedia/en/f/f8/YvesLarockRiseUpFront.jpg",
+            "https://cdn000.soundstream.media/images/common/2022/5/24/cl3k0wmf20080rnoefu0mh7g3/cl3oai2sx0038qyoe9y794it2.jpeg"
+        )
+        // вміст масиву назв пісень і авторів
         heading = arrayOf(
-            "Назва пісні А\n\nАвтор пісні А",
-            "Назва пісні B\n\nАвтор пісні B",
-            "Назва пісні C\n\nАвтор пісні C",
-            "Назва пісні D\n\nАвтор пісні D",
-            "Назва пісні E\n\nАвтор пісні E",
-            "Назва пісні F\n\nАвтор пісні F"
+            getString(R.string.heading_a),
+            getString(R.string.heading_b),
+            getString(R.string.heading_c),
+            getString(R.string.heading_d),
+            getString(R.string.heading_e),
+            getString(R.string.heading_f)
         )
-
+        // вміст масиву текстів пісень
         lyrics = arrayOf(
 
-                getString(R.string.song_a),
-                getString(R.string.song_b),
-                getString(R.string.song_c),
-                getString(R.string.song_d),
-                getString(R.string.song_e),
-                getString(R.string.song_f),
+            getString(R.string.song_a),
+            getString(R.string.song_b),
+            getString(R.string.song_c),
+            getString(R.string.song_d),
+            getString(R.string.song_e),
+            getString(R.string.song_f)
         )
 
 
 
 
-
+        // змінна для recyclerView
         newRecylerview =findViewById(R.id.recyclerView)
         newRecylerview.layoutManager = LinearLayoutManager(this)
         newRecylerview.setHasFixedSize(true)
@@ -67,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         getUserdata()
 
     }
-
+    //
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         menuInflater.inflate(R.menu.menu_item,menu)
@@ -77,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 TODO("Not yet implemented")
             }
-
+            // QueryTextChange = Зміна тексту запиту
             override fun onQueryTextChange(newText: String?): Boolean {
 
                 tempArrayList.clear()
@@ -115,65 +133,29 @@ class MainActivity : AppCompatActivity() {
 
         return super.onCreateOptionsMenu(menu)
     }
-
+    //
     private fun getUserdata() {
+        // один массив з двох
+        for(i in ImageUrl.indices){
 
-        for(i in imageId.indices){
-
-            val lyrics = Lyrics(imageId[i],heading[i])
+            val lyrics = Lyrics(ImageUrl[i],heading[i])
             newArrayList.add(lyrics)
 
         }
 
         tempArrayList.addAll(newArrayList)
 
-
+        // з'єднування Мейна з Адаптером
         val adapter = MyAdapter(tempArrayList)
-        val swipegesture = object : SwipeGesture(this){
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-
-                val from_pos = viewHolder.adapterPosition
-                val to_pos = target.adapterPosition
-
-                Collections.swap(newArrayList,from_pos,to_pos)
-                adapter.notifyItemMoved(from_pos,to_pos)
-
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
-                when(direction){
-
-                    ItemTouchHelper.LEFT ->{
-
-                        adapter.deleteItem(viewHolder.adapterPosition)
-                    }
-
-                    ItemTouchHelper.RIGHT -> {
-
-                        val archiveItem = newArrayList[viewHolder.adapterPosition]
-                        adapter.deleteItem(viewHolder.adapterPosition)
-                        adapter.addItem(newArrayList.size,archiveItem)
-
-                    }
-
-                }
-
-            }
-
-        }
-        val touchHelper = ItemTouchHelper(swipegesture)
-        touchHelper.attachToRecyclerView(newRecylerview)
         newRecylerview.adapter = adapter
         adapter.setOnItemClickListener(object : MyAdapter.onItemClickListener{
+            // Відкриття Актівіті за допомогою натискання на ітем
             override fun onItemClick(position: Int) {
 
-              //  Toast.makeText(this@MainActivity,"You Clicked on item no. $position",Toast.LENGTH_SHORT).show()
-
+                // Передача даних з одного класу в інший
                 val intent = Intent(this@MainActivity,LyricsActivity::class.java)
                 intent.putExtra("heading",newArrayList[position].heading)
-                intent.putExtra("imageId",newArrayList[position].titleImage)
+                intent.putExtra("ImageUrl",newArrayList[position].ImageUrl)
                 intent.putExtra("lyrics",lyrics[position])
                 startActivity(intent)
 

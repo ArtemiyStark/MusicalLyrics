@@ -8,6 +8,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 
 class MyAdapter(private val lyricsList : ArrayList<Lyrics>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>(),Filterable {
@@ -26,21 +27,6 @@ class MyAdapter(private val lyricsList : ArrayList<Lyrics>) : RecyclerView.Adapt
 
     }
 
-    fun deleteItem(i : Int){
-
-        lyricsList.removeAt(i)
-        notifyDataSetChanged()
-
-    }
-
-    fun addItem(i : Int, lyrics : Lyrics){
-
-        lyricsList.add(i,lyrics)
-        notifyDataSetChanged()
-
-    }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item,
@@ -53,8 +39,20 @@ class MyAdapter(private val lyricsList : ArrayList<Lyrics>) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem = lyricsList[position]
-        holder.titleImage.setImageResource(currentItem.titleImage)
+        //holder.titleImage.setImageResource(currentItem.ImageUrl)
+
+        Glide.with(holder.titleImage)
+            .load(currentItem.ImageUrl)
+            .fitCenter()
+            .skipMemoryCache(false)
+            //.placeholder(R.drawable.load)
+            .thumbnail(Glide.with(holder.titleImage).load(R.drawable.load))
+            .into(holder.titleImage)
+
+        //holder.titleImage.text = currentItem.ImageUrl
         holder.tvHeading.text = currentItem.heading
+
+
 
     }
 

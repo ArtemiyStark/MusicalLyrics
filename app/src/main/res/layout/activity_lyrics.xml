@@ -8,19 +8,21 @@
 
     <TextView
         android:id="@+id/heading"
-        android:elevation="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="16dp"
         android:padding="16dp"
         android:text="Назва пісні А\n\nАвтор пісні А"
-        android:textColor="@color/black"
-        android:textSize="26dp"
+        android:textAlignment="center"
+        android:textColor="?attr/colorSecondary"
+        android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,29 +35,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <ImageView
                 android:id="@+id/image_heading"
-                android:layout_width="wrap_content"
-                android:layout_height="300dp"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                app:layout_constraintBottom_toTopOf="@+id/lyrics"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/a" />
+                app:srcCompat="@drawable/load" />
 
             <TextView
                 android:id="@+id/lyrics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/song_a"
+                android:layout_marginTop="10dp"
                 android:lineHeight="30dp"
+                android:paddingHorizontal="16dp"
+                android:text="@string/song_a"
+                android:textColor="@color/abbadon_black"
                 android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                android:paddingHorizontal="16dp"
-                android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/image_heading" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

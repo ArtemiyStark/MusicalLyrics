@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // змінна для recyclerView
-        newRecylerview =findViewById(R.id.recyclerView)
+        newRecylerview = findViewById(R.id.recyclerView)
         newRecylerview.layoutManager = LinearLayoutManager(this)
         newRecylerview.setHasFixedSize(true)
 
@@ -138,8 +138,8 @@ class MainActivity : AppCompatActivity() {
         // один массив з двох
         for(i in ImageUrl.indices){
 
-            val lyrics = Lyrics(ImageUrl[i],heading[i])
-            newArrayList.add(lyrics)
+            val newline = Lyrics(ImageUrl[i],heading[i])
+            newArrayList.add(newline)
 
         }
 
@@ -160,9 +160,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
 
             }
-
-
         })
-
     }
 }

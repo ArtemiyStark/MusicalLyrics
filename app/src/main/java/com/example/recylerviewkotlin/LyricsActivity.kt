@@ -1,9 +1,13 @@
 package com.example.recylerviewkotlin
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -35,6 +39,13 @@ class LyricsActivity : AppCompatActivity() {
             //.placeholder(R.drawable.load)
             .thumbnail(Glide.with(imageLyrics).load(R.drawable.load))
             .into(imageLyrics)
+
+    val button = findViewById<Button>(R.id.button)
+        button.setOnClickListener{
+            Toast.makeText(this, "Text", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@LyricsActivity,ThirdActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }

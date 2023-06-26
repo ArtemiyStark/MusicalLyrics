@@ -1,6 +1,5 @@
-package com.example.recylerviewkotlin
+package com.example.recylerviewkotlin.UI
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,8 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.recylerviewkotlin.Data.Lyrics
+import com.example.recylerviewkotlin.R
 import com.google.android.material.imageview.ShapeableImageView
 
 class MyAdapter(private val lyricsList : ArrayList<Lyrics>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>(),Filterable {
@@ -31,7 +32,8 @@ class MyAdapter(private val lyricsList : ArrayList<Lyrics>) : RecyclerView.Adapt
 
         val itemView =
             LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item,
+            .inflate(
+                R.layout.list_item,
             parent,false)
 
         return MyViewHolder(itemView,mListener)

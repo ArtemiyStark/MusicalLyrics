@@ -40,12 +40,12 @@ class LyricsActivity : AppCompatActivity() {
             .thumbnail(Glide.with(imageLyrics).load(R.drawable.load))
             .into(imageLyrics)
 
-    val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener{
-            Toast.makeText(this, "Text", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@LyricsActivity,ThirdActivity::class.java)
-            startActivity(intent)
-        }
+    //val button = findViewById<Button>(R.id.button)
+    //    button.setOnClickListener{
+    //        Toast.makeText(this, "Text", Toast.LENGTH_SHORT).show()
+    //        val intent = Intent(this@LyricsActivity,ThirdActivity::class.java)
+    //        startActivity(intent)
+    //    }
 
     }
 }
